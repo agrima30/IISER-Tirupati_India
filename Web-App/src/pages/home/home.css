@@ -1,0 +1,31 @@
+.center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  width: 100%;
+}
+
+.bt:hover {
+  background-color: black !important;
+}
+
+.bt {
+  background-color: mediumpurple !important;
+}
+
+@media screen and (min-width: 645px) {
+  .heading {
+    margin-bottom: 100px !important;
+    letter-spacing: 10px !important;
+  }
+  .bt {
+    margin-left: 100px !important;
+    margin-right: 100px !important;
+  }
+  .sub-heading {
+    margin-top: 50px !important;
+  }
+}

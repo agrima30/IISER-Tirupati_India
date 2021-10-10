@@ -1,0 +1,39 @@
+.center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  width: 100% !important;
+}
+
+.bt:hover {
+  background-color: black !important;
+}
+
+.bt {
+  background-color: mediumpurple !important;
+  margin: 0 !important;
+}
+
+.MuiInputBase-input {
+  color: white !important;
+}
+
+.generator {
+  margin-top: 3rem !important;
+}
+
+@media screen and (min-width: 740px) {
+  .generator {
+    margin-top: 100px !important;
+  }
+  /* .bt {
+    margin-left: 100px !important;
+    margin-right: 100px !important;
+  }
+  .sub-heading {
+    margin-top: 50px !important;
+  } */
+}
