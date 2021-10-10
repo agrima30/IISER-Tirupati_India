@@ -14,7 +14,6 @@ function QRscanner() {
     if (data) {
       setQrscan(data);
     }
-    data ? speak({ text: data });
   };
   const handleError = (err) => {
     console.error(err);
