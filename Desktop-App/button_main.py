@@ -19,31 +19,23 @@ backImg = pygame.image.load('back.png').convert_alpha()
 backButton = button.Button(10,10, backImg, 0.07)
 
 # load button images
-start_img = pygame.image.load('createroom.png').convert_alpha()
-exit_img = pygame.image.load('joinroom.png').convert_alpha()
-
-# create button instances
-createButton = button.Button(100, 200, start_img, 0.4)
-joinButton = button.Button(450, 200, exit_img, 0.4)
+genImg = pygame.image.load('QR_GEN.png').convert_alpha()
+scanImg = pygame.image.load('QR_SCAN.png').convert_alpha()
 
 # text input
-textInputManager = pti.TextInputManager(validator=lambda input: len(input)<=24)
-textinputCustom = pti.TextInputVisualizer(manager=textInputManager)
-data = ''
-page = ''
-
-#--------------------
-# Scanner
-#--------------------
-
+textInputManager = pti.TextInputManager(validator=lambda input: len(input)<=50)
+textinputCustom = pti.TextInputVisualizer(manager=textInputManager,
+										  font_color=(255, 255, 255),
+										  cursor_color=(255, 255, 255))
 # game loop
 run = True
 pygame.key.set_repeat(300, 25)
+data = ''
+page = ''
 
 try:
 	while run:
 		events = pygame.event.get()
-		# screen.fill((202, 228, 241))
 		screen.fill((37,38,39,1))
 
 		if page in ['scan', 'gen']:
@@ -51,11 +43,11 @@ try:
 				page = ''
 
 		if page == '':
-			if createButton.draw(screen):
+			if button.Button(100,200, genImg, 0.25).draw(screen):
 				print('CREATE SCRIPT')
 				page = 'gen'
 
-			elif joinButton.draw(screen):
+			elif button.Button(500,200, scanImg, 0.25).draw(screen):
 				print('JOIN SCRIPT HERE')
 				page = 'scan'
 
@@ -69,9 +61,9 @@ try:
 
 			textinputCustom.update(events)
 			screen.blit(textinputCustom.surface, (SCREEN_WIDTH/2 - 50,
-												SCREEN_HEIGHT/2 + 7,
-												TEXTBOX_WIDTH,
-												TEXTBOX_HEIGHT))
+												  SCREEN_HEIGHT/4,
+												  TEXTBOX_WIDTH,
+												  TEXTBOX_HEIGHT))
 
 		elif page == 'scan':
 			camera = cv2.VideoCapture(0)
@@ -82,10 +74,12 @@ try:
 				frame = frame.swapaxes(0, 1)
 				screen = pygame.display.set_mode((640, 480), pygame.RESIZABLE)
 				pygame.surfarray.blit_array(screen, frame)
+
 				if button.Button(10,10, backImg, 0.07).draw(screen):
 					page = ''
 					screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 					break
+
 				pygame.display.update()
 				events = pygame.event.get()
 				for event in events:
