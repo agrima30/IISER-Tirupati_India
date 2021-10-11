@@ -1,3 +1,4 @@
+from numpy import longfloat
 from src import button
 from src.qr_gen import gen, filter
 from src.videoScanner import scan
@@ -21,8 +22,12 @@ backImg = pygame.image.load('assets/textures/back.png').convert_alpha()
 backButton = button.Button(10,10, backImg, 0.07)
 
 # load homepage images
+# titleImg = pygame.image.load('assets/textures/title.png')
 genImg = pygame.image.load('assets/textures/QR_GEN.png').convert_alpha()
 scanImg = pygame.image.load('assets/textures/QR_SCAN.png').convert_alpha()
+font = pygame.font.Font('assets/fonts/Luckiestguy.ttf', 60*SCREEN_WIDTH//800)
+
+titleText = font.render('LAB EYES', True, (255,255,255))
 
 # text input
 textInputManager = pti.TextInputManager(validator=lambda input: len(input)<=50)
@@ -47,6 +52,8 @@ try:
 
 		# Homepage buttons
 		if page == '':
+			# button.Button(SCREEN_WIDTH/2-titleImg.get_width()/2*0.6, SCREEN_HEIGHT/4, titleImg, 0.6).draw(screen)
+			screen.blit(titleText, (SCREEN_WIDTH/2-titleText.get_width()/2, SCREEN_HEIGHT/4))
 			if button.Button(100,200, genImg, 0.25).draw(screen):
 				print('Generate QR')
 				page = 'gen'
@@ -70,7 +77,7 @@ try:
 												  SCREEN_HEIGHT/4,
 												  TEXTBOX_WIDTH,
 												  TEXTBOX_HEIGHT))
-		
+
 		# QR scanner
 		elif page == 'scan':
 			camera = cv2.VideoCapture(0)
