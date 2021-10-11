@@ -1,11 +1,10 @@
 import cv2
 import numpy as np
 import subprocess, sys
-import config
+from src import config
 
 def scan(imgOG):
     detector = cv2.QRCodeDetector()
-    # s, imgOG = img.read()
     H_len = np.shape(imgOG)[1]
 
     config.Data, points, straight_qrcode = detector.detectAndDecode(imgOG)
@@ -25,8 +24,6 @@ def scan(imgOG):
         for i in range(n_lines):
             point1 = tuple(points[i])
             point2 = tuple(points[(i+1) % n_lines])
-            print(point1)
-            print(point2)
             cv2.line(imgOG, point1, point2, color=(255, 0, 0),
                         thickness=3)  # makes box around qr
 
@@ -37,11 +34,8 @@ def scan(imgOG):
                             cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 255, 0), 2)
             if len(config.Data) >= 1 and config.Data!= config.oldData:
                 print("playing audio")
-                subprocess.Popen([sys.executable, 'playCurrentAudio.py', config.Data], 
-                                        stdout=subprocess.PIPE, 
-                                        stderr=subprocess.STDOUT)
+                subprocess.Popen([sys.executable, 'src/playCurrentAudio.py', config.Data],)
                 config.oldData = config.Data = ''
-                # cv2.destroyAllWindows()
 
     else:
         imgOG = cv2.flip(imgOG, 1)
