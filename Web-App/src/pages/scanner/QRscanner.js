@@ -42,12 +42,12 @@ function QRscanner() {
                 onError={handleError}
                 onScan={handleScan}
                 style={{ height: 240, width: 320 }}
-                // onChange={() => speak({ text: qrscan })}
               />
             </div>
           </center>
 
           <TextareaAutosize
+            autoFocus
             onChange={() => speak({ text: qrscan })}
             style={{ fontSize: 18, width: 320, height: 100, marginTop: 100 }}
             rowsMax={4}
@@ -56,10 +56,6 @@ function QRscanner() {
           />
         </Grid>
       </Grid>
-
-      {/* <button onClick={() => speak({ text: qrscan })}>Speak</button> */}
-
-      {/* <Speech text={qrscan} /> */}
     </div>
   );
 }
