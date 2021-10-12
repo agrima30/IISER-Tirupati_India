@@ -23,5 +23,5 @@ def gen(data):
 
     image = qr.make_image(fill_color="black", back_color="white").convert('RGB')  # colour settings
 
-    path = "pics/" + data.lower()[:30] + ".png"
+    path = "qr_codes/" + data.lower()[:30] + ".png"
     image.save(path)

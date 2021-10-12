@@ -4,7 +4,12 @@ from assets.src.videoScanner import scan
 import pygame_textinput as pti
 import pygame
 import cv2
-import sys
+import sys, os
+
+try:
+	os.mkdir('qr_codes')
+except:
+	pass
 
 # height-width	
 SCREEN_HEIGHT = 450
