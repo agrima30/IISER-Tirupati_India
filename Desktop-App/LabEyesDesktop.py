@@ -1,7 +1,6 @@
-from numpy import longfloat
-from src import button
-from src.qr_gen import gen, filter
-from src.videoScanner import scan
+from assets.src import button
+from assets.src.qr_gen import gen, filter
+from assets.src.videoScanner import scan
 import pygame_textinput as pti
 import pygame
 import cv2

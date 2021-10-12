@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import subprocess, sys
-from src import config
+from assets.src import config
 
 def scan(imgOG):
     detector = cv2.QRCodeDetector()
