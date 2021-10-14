@@ -36,12 +36,15 @@ function QRscanner() {
 
         <Grid item xs>
           <center>
-            <div style={{ marginTop: 30 }}>
+            <div style={{ marginTop: 30 }} className='scan'>
               <QrScan
                 delay={300}
                 onError={handleError}
                 onScan={handleScan}
-                style={{ height: 240, width: 320 }}
+                style={{
+                  height: 240,
+                  width: 320,
+                }}
               />
             </div>
           </center>

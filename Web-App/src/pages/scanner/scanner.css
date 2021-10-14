@@ -7,6 +7,10 @@
   margin-top: 3rem !important;
 }
 
+.scan {
+  transform: scaleX(-1);
+}
+
 @media screen and (min-width: 740px) {
   .scanner {
     margin-top: 100px !important;
