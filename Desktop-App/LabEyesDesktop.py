@@ -29,7 +29,6 @@ backImg = pygame.image.load('assets/textures/back.png').convert_alpha()
 backButton = button.Button(10,10, backImg, 0.07)
 
 # load homepage images
-# titleImg = pygame.image.load('assets/textures/title.png')
 genImg = pygame.image.load('assets/textures/QR_GEN.png').convert_alpha()
 scanImg = pygame.image.load('assets/textures/QR_SCAN.png').convert_alpha()
 font = pygame.font.Font('assets/fonts/Luckiestguy.ttf', 60*SCREEN_WIDTH//800)
@@ -114,7 +113,7 @@ try:
 					for i in points:
 						i[0] = H_len - i[0]
 
-					# image manipulation
+					# qr bounding
 					for i in range(n_lines):
 						point1 = tuple(points[i])
 						point2 = tuple(points[(i+1) % n_lines])
@@ -140,9 +139,17 @@ try:
 					# flips image
 					imgOG = cv2.flip(imgOG, 1)
 
-				# print the image on screen
+				# image manipulation
+				h, w = imgOG.shape[:2]
+				ratio = SCREEN_WIDTH/SCREEN_HEIGHT
+				if ratio > w/h:
+					imgOG = imgOG[int(h-w/ratio)//2:(h - int(h-w/ratio)//2), :]
+				elif ratio < w/h:
+					imgOG = imgOG[:, :int(w-ratio*h)]
+				imgOG = cv2.resize(imgOG, (800, 450), interpolation =cv2.INTER_LINEAR)
 				imgOG = imgOG.swapaxes(0, 1)
-				screen = pygame.display.set_mode((640, 480))
+
+				# print the image on screen
 				pygame.surfarray.blit_array(screen, imgOG)
 
 				# back button
@@ -172,11 +179,10 @@ try:
 				if flag:
 					flag = False
 					break
-
-			SCREEN_HEIGHT = 450
-			SCREEN_WIDTH = 800
-			screen.fill((37,38,39,1))
-			continue
+				
+			pygame.display.quit()
+			screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+			pygame.display.init()
 
 		# event handler
 		for event in events:
