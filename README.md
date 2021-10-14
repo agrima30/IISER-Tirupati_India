@@ -38,7 +38,7 @@ Users can easily make qr codes for individual apparatus and paste it on them. Th
 
 To access the website, visit this link: [https://lab-eyes.netlify.app/]()<br>
 
-To download the Desktop App, visit this link: [https://www.google.com]()<br>
+To download the Desktop App, visit this link: [https://1drv.ms/u/s!AuYwE7GkXrrHasek7ioRyfX5-2w?e=UnfiTU]()<br>
 
 
 ## 🎈 Usage <a name="usage"></a>
