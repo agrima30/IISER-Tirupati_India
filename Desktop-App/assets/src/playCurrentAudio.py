@@ -12,6 +12,7 @@ def func(data):
         speech = gTTS(text=(data), lang='en', slow=False)
         speech.save("current_audio.mp3")
         AudioPlayer("current_audio.mp3").play(block=True)
+        print("Just played")
         os.remove("current_audio.mp3")
     except:
         pass

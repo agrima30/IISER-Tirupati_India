@@ -4,3 +4,4 @@
 
 newData = ''
 oldData = ''
+page = ''
