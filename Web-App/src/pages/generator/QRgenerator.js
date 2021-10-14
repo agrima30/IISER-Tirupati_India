@@ -49,12 +49,6 @@ function QRgenerator() {
               size='large'
               variant='outlined'
             />
-            {/* <TextField
-              id='filled-search'
-              label='Search field'
-              type='search'
-              variant='filled'
-            /> */}
           </div>
 
           <div>
