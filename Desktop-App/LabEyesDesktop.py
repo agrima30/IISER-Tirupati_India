@@ -30,14 +30,14 @@ screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # back button
 backImg = pg.image.load('assets/textures/back.png').convert_alpha()
-backButton = button.Button(10,10, backImg, 0.1)
+backButton = button.Button(10,10, backImg, 0.05)
 
 # load homepage images
 genImg = pg.image.load('assets/textures/QR_GEN.png').convert_alpha()
 scanImg = pg.image.load('assets/textures/QR_SCAN.png').convert_alpha()
 font = pg.font.Font('assets/fonts/Luckiestguy.ttf', 40*SCREEN_WIDTH//800)
 subFont = pg.font.Font('assets/fonts/Luckiestguy.ttf', 20*SCREEN_WIDTH//800)
-base_font = pg.font.Font(None, 50)
+base_font = pg.font.Font('assets/fonts/Segoe_UI.ttf', 40*SCREEN_WIDTH//800)
 
 genQR = subFont.render('GENERATE QR', True, WHITE)
 scanQR = subFont.render('SCAN QR', True, WHITE)
@@ -163,7 +163,7 @@ try:
 				pg.surfarray.blit_array(screen, imgOG)
 
 				# back button
-				if button.Button(10,10, backImg, 0.1).draw(screen):
+				if button.Button(10,10, backImg, 0.05).draw(screen):
 					config.page = ''
 					screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),)
 					break

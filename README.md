@@ -8,9 +8,9 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/agrima30/Lab-Eyes/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/agrima30/Lab-Eyes/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/agrima30/Lab-Eyes.svg)](https://github.com/agrima30/Lab-Eyes/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/agrima30/Lab-Eyes.svg)](https://github.com/agrima30/Lab-Eyes/pulls)
+<!-- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE) -->
 
 </div>
 
@@ -30,13 +30,13 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🔬 About <a name = "about"></a>
 We aim at making synthetic biology laboratories more accessable for visually challenged researchers by helping them distinguish between apparatus of similar build. This app can even be used to know what chemical is stored in a container.<br>
 Users can easily make qr codes for individual apparatus and paste it on them. The apparatus can then be easily identified by placing qr code infront of the camera. The scanner also reads it out for people who are visually challenged.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-To access the website, visit this link: [https://www.google.com]()<br>
+To access the website, visit this link: [https://lab-eyes.netlify.app/]()<br>
 
 To download the Desktop App, visit this link: [https://www.google.com]()<br>
 
@@ -50,7 +50,11 @@ To scan a QR code, click on ```SCAN QR``` on homepage and present the QR code in
 - Desktop App<br>
 On the homepage, click on ```GENERATE QR``` and enter your text/link. Press 'Enter' to generate a static QR code. The QR will be saved automatically in ```qr_codes``` folder at the app's location.<br>
 To scan a QR code, click on ```SCAN QR``` on homepage and present the QR code infront of the camera. Make sure the code is clearly visible. The scanner will then decode it and read it out through connected speakers.
-
+> You can also navigate in the app using keyboard buttons
+> - ```UP```: To go to generation page
+> - ```DOWN```: To go to scanning page
+> - ```LEFT CTRL```: To go to home page
+> - ```ESC```: To close the app
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
