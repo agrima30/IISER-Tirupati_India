@@ -9,6 +9,7 @@ Converts text to speech
 
 def func(data):
     try:
+        print('playing')
         speech = gTTS(text=(data), lang='en', slow=False)
         speech.save("current_audio.mp3")
         AudioPlayer("current_audio.mp3").play(block=True)

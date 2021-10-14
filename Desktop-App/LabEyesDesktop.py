@@ -1,11 +1,15 @@
 from assets.src import button, config
 from assets.src.qr_gen import gen, filter
-import pygame_textinput as pti
-import pygame
+import pygame as pg
+from pygame import font
 import cv2
 import sys, os
 import numpy as np
-import subprocess, sys
+import sys
+from audioplayer import AudioPlayer
+from gtts import gTTS
+
+pg.init()
 
 try:
 	os.mkdir('qr_codes')
@@ -21,36 +25,36 @@ TEXTBOX_HEIGHT = 35
 WHITE = (255, 255, 255)
 
 # create display window
-pygame.display.set_caption('Lab-Eyes')
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption('Lab-Eyes')
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # back button
-backImg = pygame.image.load('assets/textures/back.png').convert_alpha()
-backButton = button.Button(10,10, backImg, 0.07)
+backImg = pg.image.load('assets/textures/back.png').convert_alpha()
+backButton = button.Button(10,10, backImg, 0.1)
 
 # load homepage images
-genImg = pygame.image.load('assets/textures/QR_GEN.png').convert_alpha()
-scanImg = pygame.image.load('assets/textures/QR_SCAN.png').convert_alpha()
-font = pygame.font.Font('assets/fonts/Luckiestguy.ttf', 60*SCREEN_WIDTH//800)
+genImg = pg.image.load('assets/textures/QR_GEN.png').convert_alpha()
+scanImg = pg.image.load('assets/textures/QR_SCAN.png').convert_alpha()
+font = pg.font.Font('assets/fonts/Luckiestguy.ttf', 40*SCREEN_WIDTH//800)
+subFont = pg.font.Font('assets/fonts/Luckiestguy.ttf', 20*SCREEN_WIDTH//800)
+base_font = pg.font.Font(None, 50)
 
-titleText = font.render('LAB EYES', True, (255,255,255))
-
-# text input
-textInputManager = pti.TextInputManager(validator=lambda input: len(input)<=50)
-textinputCustom = pti.TextInputVisualizer(manager=textInputManager,
-										  font_color=WHITE,
-										  cursor_color=WHITE)
+genQR = subFont.render('GENERATE QR', True, WHITE)
+scanQR = subFont.render('SCAN QR', True, WHITE)
+genPrompt = font.render('Enter your text', True, WHITE)
+titleText = font.render('LAB EYES', True, WHITE)
 
 # game loop
 run = True
-pygame.key.set_repeat(300, 25)
+pg.key.set_repeat(300, 25)
 data = ''
+enteredText = ''
 camera = cv2.VideoCapture(0)
 
 try:
 	while run:
-		screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-		events = pygame.event.get()
+		screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+		events = pg.event.get()
 		screen.fill((37,38,39,1))
 
 		if config.page in ['scan', 'gen']:
@@ -59,16 +63,18 @@ try:
 
 		# Homepage buttons
 		if config.page == '':
-			screen.blit(titleText, (SCREEN_WIDTH/2-titleText.get_width()/2, SCREEN_HEIGHT/4))
-			if button.Button(100,200, genImg, 0.25).draw(screen):
+			screen.blit(titleText, (SCREEN_WIDTH/2-titleText.get_width()/2, SCREEN_HEIGHT/5))
+			screen.blit(genQR, (100+genImg.get_width()*0.25/2-genQR.get_width()/2,180 + genImg.get_width()*0.25 + 5))
+			screen.blit(scanQR, (500+scanImg.get_width()*0.25/2-scanQR.get_width()/2,180 + scanImg.get_width()*0.25 +5))
+			if button.Button(100,180, genImg, 0.25).draw(screen):
 				config.page = 'gen'
-			elif button.Button(500,200, scanImg, 0.25).draw(screen):
+			elif button.Button(500,180, scanImg, 0.25).draw(screen):
 				config.page = 'scan'
 
 		# QR generator
 		elif config.page == 'gen':
 			try:
-				currQrImg = pygame.image.load(f'qr_codes/{staticData}.png').convert_alpha()
+				currQrImg = pg.image.load(f'qr_codes/{staticData}.png').convert_alpha()
 				if button.Button(SCREEN_WIDTH/2 - currQrImg.get_width()/2*0.4,
 								   SCREEN_HEIGHT*0.65,
 								   currQrImg, 0.4).draw(screen):
@@ -76,12 +82,11 @@ try:
 					# print(f'print qr code here')
 			except:
 				pass
+			
+			screen.blit(genPrompt, (SCREEN_WIDTH/2-genPrompt.get_width()/2, SCREEN_HEIGHT/5))
 
-			textinputCustom.update(events)
-			screen.blit(textinputCustom.surface, (SCREEN_WIDTH/2 - 50,
-												  SCREEN_HEIGHT/4,
-												  TEXTBOX_WIDTH,
-												  TEXTBOX_HEIGHT),)
+			textSurface = base_font.render(enteredText,True, WHITE)
+			screen.blit(textSurface,(100,150))
 
 		# QR scanner
 		elif config.page == 'scan':
@@ -131,7 +136,12 @@ try:
 						
 						# text to speech
 						if len(config.Data) >= 1 and config.Data!= config.oldData:
-							subprocess.Popen([sys.executable, 'assets/src/playCurrentAudio.py', config.Data],)
+							print('playing')
+							speech = gTTS(text=(config.Data), lang='en', slow=False)
+							speech.save("current_audio.mp3")
+							AudioPlayer("current_audio.mp3").play(block=True)
+							print("Just played")
+							os.remove("current_audio.mp3")
 							config.oldData = config.Data = ''
 
 				else:
@@ -150,29 +160,29 @@ try:
 				imgOG = imgOG.swapaxes(0, 1)
 
 				# print the image on screen
-				pygame.surfarray.blit_array(screen, imgOG)
+				pg.surfarray.blit_array(screen, imgOG)
 
 				# back button
-				if button.Button(10,10, backImg, 0.07).draw(screen):
+				if button.Button(10,10, backImg, 0.1).draw(screen):
 					config.page = ''
-					screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),)
+					screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),)
 					break
 
 				# exit events
-				pygame.display.update()
-				events = pygame.event.get()
+				pg.display.update()
+				events = pg.event.get()
 				flag = False
 
 				for event in events:
-					if event.type == pygame.QUIT: 
+					if event.type == pg.QUIT: 
 						sys.exit(0)
-					if event.type == pygame.KEYDOWN:
-						if event.key == pygame.K_ESCAPE:
+					if event.type == pg.KEYDOWN:
+						if event.key == pg.K_ESCAPE:
 							sys.exit(0)
-						if pygame.key.get_mods() & pygame.KMOD_LCTRL:
+						if pg.key.get_mods() & pg.KMOD_LCTRL:
 							config.page = ''
 							flag = True
-						if event.key == pygame.K_UP:
+						if event.key == pg.K_UP:
 							config.page = 'gen'
 							flag = True
 				# exit
@@ -180,38 +190,44 @@ try:
 					flag = False
 					break
 				
-			pygame.display.quit()
-			screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-			pygame.display.init()
+			pg.display.quit()
+			screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+			pg.display.init()
 
 		# event handler
 		for event in events:
 
 			# quit game
-			if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+			if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
 				run = False
 
 			# enter data
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_RETURN and config.page == 'gen':
-					data = filter(textinputCustom.value)
-					staticData = data
-					gen(data)
-					textinputCustom.value = ''
+			if event.type == pg.KEYDOWN:
+				if config.page == 'gen':
+					if event.key == pg.K_RETURN:
+						data = filter(enteredText)
+						staticData = data
+						gen(data)
+						enteredText = ''
+						enteredText = enteredText[:-2]
+					if event.key == pg.K_BACKSPACE:
+						enteredText = enteredText[:-2]
+					else:
+						enteredText += event.unicode
 
-				if event.key == pygame.K_UP:
+				if event.key == pg.K_UP:
 					config.page = 'gen'
 
-				if event.key == pygame.K_DOWN:
+				if event.key == pg.K_DOWN:
 					config.page = 'scan'
 
-				if pygame.key.get_mods() & pygame.KMOD_LCTRL:
+				if pg.key.get_mods() & pg.KMOD_LCTRL:
 					config.page = ''
 
-		pygame.display.update()
+		pg.display.update()
 
 except (KeyboardInterrupt, SystemExit):
-    pygame.quit()
+    pg.quit()
     cv2.destroyAllWindows()
 
-pygame.quit()
+pg.quit()

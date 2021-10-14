@@ -3,7 +3,7 @@ import qrcode
 def filter(data):
     text = ''
     for char in data:
-        if char in ['<','>',':','/','|','?','*','"','\'', '\\']:
+        if char in ['<','>',':','/','|','?','*','"','\'', '\\', '\r']:
             char = ''
         text += char
     return text
@@ -22,9 +22,11 @@ def gen(data):
     qr.make(fit=True)  # make qr
 
     image = qr.make_image(fill_color="black", back_color="white").convert('RGB')  # colour settings
-
-    path = "qr_codes/" + data.lower()[:30] + ".png"
-    try:
-        image.save(path)
-    except:
-        pass
+    while True:
+        try:
+            path = f"qr_codes/{data[:30]}.png"
+            image.save(path)
+            break
+        except:
+            data = data[1:]
+            pass

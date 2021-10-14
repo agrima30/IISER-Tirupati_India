@@ -1,7 +1,6 @@
 qrcode>=7.2
-gTTS>=2.2.3
-pygame_textinput>=1.0.1
 pygame>=2.0.1
+numpy>=1.21.0
+gTTS>=2.2.3
 opencv_python>=4.5.2.54
 audioplayer>=0.6
-numpy>=1.21.0
