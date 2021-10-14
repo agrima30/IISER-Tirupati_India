@@ -31,8 +31,8 @@
 - [Acknowledgments](#acknowledgement)
 
 ## 🔬 About <a name = "about"></a>
-We aim at making synthetic biology laboratories more accessable for visually challenged researchers by helping them distinguish between apparatus of similar build. This app can even be used to know what chemical is stored in a container.<br>
-Users can easily make qr codes for individual apparatus and paste it on them. The apparatus can then be easily identified by placing qr code infront of the camera. The scanner also reads it out for people who are visually challenged.
+We aim at making biology laboratories more accessible for visually challenged researchers by helping them distinguish between apparatus of similar build. This app can even be used to identify chemicals stored in a container.<br>
+Users can easily make QR codes for individual apparatus and paste it on them. The apparatus can then be easily identified by placing QR code in front of the camera. The scanner reads it out for people who are visually challenged.<br>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
