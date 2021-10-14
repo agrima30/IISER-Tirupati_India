@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Fab,
-  TextField,
-  TextareaAutosize,
-  Typography,
-  Grid,
-} from '@material-ui/core';
+import { Fab, TextField, Typography, Grid } from '@material-ui/core';
 import { ArrowBack, GetApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import QRcode from 'qrcode.react';
@@ -13,7 +7,7 @@ import QRcode from 'qrcode.react';
 import './generator.css';
 
 function QRgenerator() {
-  const [qr, setQr] = useState('Enter Equipment Name Here');
+  const [qr, setQr] = useState('');
   const handleChange = (event) => {
     setQr(event.target.value);
   };
@@ -24,7 +18,8 @@ function QRgenerator() {
       .replace('image/png', 'image/octet-stream');
     let downloadLink = document.createElement('a');
     downloadLink.href = pngUrl;
-    downloadLink.download = 'myqr.png';
+    let x = qr.toLowerCase();
+    downloadLink.download = x + '.png';
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -53,8 +48,13 @@ function QRgenerator() {
               label='QR content'
               size='large'
               variant='outlined'
-              color='secondary'
             />
+            {/* <TextField
+              id='filled-search'
+              label='Search field'
+              type='search'
+              variant='filled'
+            /> */}
           </div>
 
           <div>

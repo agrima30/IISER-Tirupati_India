@@ -2,3 +2,14 @@
   background-color: mediumpurple !important;
   margin: 0 !important;
 }
+
+.scanner {
+  margin-top: 3rem !important;
+}
+
+@media screen and (min-width: 740px) {
+  .scanner {
+    margin-top: 100px !important;
+    margin-bottom: 150px !important;
+  }
+}

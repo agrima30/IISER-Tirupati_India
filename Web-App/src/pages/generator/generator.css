@@ -17,7 +17,12 @@
   margin: 0 !important;
 }
 
-.MuiInputBase-input {
+.MuiOutlinedInput-notchedOutline {
+  border-color: mediumpurple !important;
+}
+
+.MuiInputBase-input,
+.MuiInputLabel-outlined {
   color: white !important;
 }
 
@@ -29,11 +34,4 @@
   .generator {
     margin-top: 100px !important;
   }
-  /* .bt {
-    margin-left: 100px !important;
-    margin-right: 100px !important;
-  }
-  .sub-heading {
-    margin-top: 50px !important;
-  } */
 }
